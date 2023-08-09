@@ -156,5 +156,8 @@ files:
     if __name__ == '__main__':    HangmanTest('hangman.hangman').run_tests()
   learner_created: false
 feedback_link: https://hyperskill.org/projects/69/stages/375/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Wed, 09 Aug 2023 17:09:59 UTC"
 record: -1

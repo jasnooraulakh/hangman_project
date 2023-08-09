@@ -19,9 +19,18 @@ def rand_word():
 word = rand_word()
 
 
+def user_hint(chosen_word):
+    """Show the first 3 letters of the word, hide the trailing letters."""
+    remaining_length = len(chosen_word) - 3
+    trailing_letters = str(remaining_length * '-')
+    hint = chosen_word[:3] + trailing_letters
+    print(hint)
+
+
 def guess_word(provided_word):
     """Compare user input to randomly chosen word."""
     user_guess = input("Guess the word: ")
+
     if user_guess == provided_word:
         print("You survived!")
     else:
@@ -29,4 +38,5 @@ def guess_word(provided_word):
 
 
 intro()
+user_hint(word)
 guess_word(word)
