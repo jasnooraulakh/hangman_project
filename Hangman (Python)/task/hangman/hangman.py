@@ -4,8 +4,11 @@ import random
 
 def intro():
     """Print welcome text."""
-    print("H A N G M A N")
-    print("The game will be available soon.")
+    print("H A N G M A N \n")
+    # print("The game will be available soon.")
+
+
+intro()
 
 
 def rand_word():
@@ -20,23 +23,31 @@ word = rand_word()
 
 
 def user_hint(chosen_word):
-    """Show the first 3 letters of the word, hide the trailing letters."""
-    remaining_length = len(chosen_word) - 3
-    trailing_letters = str(remaining_length * '-')
-    hint = chosen_word[:3] + trailing_letters
-    print(hint)
+    """Show the word length in '-' as a hint."""
+    hidden_word = len(chosen_word) * '-'
+    return hidden_word
 
 
 def guess_word(provided_word):
-    """Compare user input to randomly chosen word."""
-    user_guess = input("Guess the word: ")
+    """Compare user input to randomly chosen word, and reveal guessed letters."""
+    i = 0
+    hint = user_hint(word)
 
-    if user_guess == provided_word:
-        print("You survived!")
-    else:
-        print("You lost!")
+    while i < 8:
+        print(hint)
+        user_guess = input("Input a letter: ")
+        if user_guess not in provided_word:
+            print("That letter doesn't appear in the word.")
+
+        else:
+            hint_list = list(hint)
+            for letter in range(len(provided_word)):
+                if provided_word[letter] == user_guess:
+                    hint_list[letter] = user_guess
+            hint = "".join(hint_list)
+        i += 1
+        print()
 
 
-intro()
-user_hint(word)
 guess_word(word)
+print("Thanks for playing!")
