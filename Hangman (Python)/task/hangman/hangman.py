@@ -28,6 +28,29 @@ def user_hint(chosen_word):
     return hidden_word
 
 
+def check_input(user_input):
+    """Check the user guess, if it is a single, lowercase alphabet."""
+    if user_input == "":
+        print("Please, input a single letter.")
+        is_valid = False
+    else:
+        if user_input.isalpha():
+            if user_input.islower():
+                if int(len(user_input)) < 2:
+                    pass
+                    is_valid = True
+                else:
+                    print("Please, input a single letter.")
+                    is_valid = False
+            else:
+                print("Please, enter a lowercase letter from the English alphabet.")
+                is_valid = False
+        else:
+            print("Please, enter a lowercase letter from the English alphabet.")
+            is_valid = False
+    return is_valid
+
+
 def guess_word(provided_word):
     """Compare user input to randomly chosen word, and reveal guessed letters."""
     i = 8
@@ -37,28 +60,33 @@ def guess_word(provided_word):
     while i > 0:
         print(hint)
         user_guess = input("Input a letter: ")
+        valid_input = check_input(user_guess)
 
-        if user_guess in guessed_letters:
-            print("No improvements.")
-            i -= 1
+        if not valid_input:
+            print()
+            continue
         else:
-            guessed_letters.add(user_guess)
 
-            if user_guess not in provided_word:
-                print("That letter doesn't appear in the word.")
-                i -= 1
-
+            if user_guess in guessed_letters:
+                print("You've already guessed this letter.")
             else:
-                hint_list = list(hint)
-                for letter in range(len(provided_word)):
-                    if provided_word[letter] == user_guess:
-                        hint_list[letter] = user_guess
-                hint = "".join(hint_list)
+                guessed_letters.add(user_guess)
 
-                if hint == provided_word:
-                    print("You guessed the word!")
-                    print("You survived!")
-                    break
+                if user_guess not in provided_word:
+                    print("That letter doesn't appear in the word.")
+                    i -= 1
+
+                else:
+                    hint_list = list(hint)
+                    for letter in range(len(provided_word)):
+                        if provided_word[letter] == user_guess:
+                            hint_list[letter] = user_guess
+                    hint = "".join(hint_list)
+
+                    if hint == provided_word:
+                        print(f"You guessed the word {provided_word}!")
+                        print("You survived!")
+                        break
 
         print()
         if i == 0:
@@ -66,4 +94,3 @@ def guess_word(provided_word):
 
 
 guess_word(word)
-
