@@ -30,24 +30,40 @@ def user_hint(chosen_word):
 
 def guess_word(provided_word):
     """Compare user input to randomly chosen word, and reveal guessed letters."""
-    i = 0
+    i = 8
     hint = user_hint(word)
+    guessed_letters = set()
 
-    while i < 8:
+    while i > 0:
         print(hint)
         user_guess = input("Input a letter: ")
-        if user_guess not in provided_word:
-            print("That letter doesn't appear in the word.")
 
+        if user_guess in guessed_letters:
+            print("No improvements.")
+            i -= 1
         else:
-            hint_list = list(hint)
-            for letter in range(len(provided_word)):
-                if provided_word[letter] == user_guess:
-                    hint_list[letter] = user_guess
-            hint = "".join(hint_list)
-        i += 1
+            guessed_letters.add(user_guess)
+
+            if user_guess not in provided_word:
+                print("That letter doesn't appear in the word.")
+                i -= 1
+
+            else:
+                hint_list = list(hint)
+                for letter in range(len(provided_word)):
+                    if provided_word[letter] == user_guess:
+                        hint_list[letter] = user_guess
+                hint = "".join(hint_list)
+
+                if hint == provided_word:
+                    print("You guessed the word!")
+                    print("You survived!")
+                    break
+
         print()
+        if i == 0:
+            print("You lost!")
 
 
 guess_word(word)
-print("Thanks for playing!")
+
