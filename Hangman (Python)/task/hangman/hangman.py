@@ -4,11 +4,11 @@ import random
 
 def intro():
     """Print welcome text."""
-    print("H A N G M A N \n")
+    print("H A N G M A N ")
     # print("The game will be available soon.")
 
 
-intro()
+# intro()
 
 
 def rand_word():
@@ -51,6 +51,10 @@ def check_input(user_input):
     return is_valid
 
 
+GAMES_WON = 0
+GAMES_LOST = 0
+
+
 def guess_word(provided_word):
     """Compare user input to randomly chosen word, and reveal guessed letters."""
     i = 8
@@ -61,6 +65,9 @@ def guess_word(provided_word):
         print(hint)
         user_guess = input("Input a letter: ")
         valid_input = check_input(user_guess)
+
+        global GAMES_WON
+        global GAMES_LOST
 
         if not valid_input:
             print()
@@ -86,11 +93,32 @@ def guess_word(provided_word):
                     if hint == provided_word:
                         print(f"You guessed the word {provided_word}!")
                         print("You survived!")
+                        GAMES_WON += 1
                         break
 
         print()
         if i == 0:
             print("You lost!")
+            GAMES_LOST += 1
 
 
-guess_word(word)
+def game_op():
+    intro()
+    while True:
+        player_choice = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
+
+        if player_choice == 'play':
+            # word = rand_word()
+            print()
+            guess_word(word)
+            continue
+        elif player_choice == 'results':
+            print(f"You won: {GAMES_WON} times.")
+            print(f"You lost: {GAMES_LOST} times.")
+            continue
+        elif player_choice == 'exit':
+            exit()
+
+
+# guess_word(word)
+game_op()
