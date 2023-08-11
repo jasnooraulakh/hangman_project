@@ -103,6 +103,7 @@ def guess_word(provided_word):
 
 
 def game_op():
+    """Run game operation"""
     intro()
     while True:
         player_choice = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
